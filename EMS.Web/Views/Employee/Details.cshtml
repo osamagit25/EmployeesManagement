@@ -1,0 +1,52 @@
+﻿@model EMS.DAL.Models.Employee
+
+@{
+    ViewData["Title"] = "Employee Details";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-info text-white">
+            <h4 class="mb-0">Employee Details</h4>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                
+
+                <dt class="col-sm-3 fw-bold">Name</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+
+                <dt class="col-sm-3 fw-bold">Age</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Age)</dd>
+
+                <dt class="col-sm-3 fw-bold">Salary</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Salary)</dd>
+
+                <dt class="col-sm-3 fw-bold">Email</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Email)</dd>
+
+                <dt class="col-sm-3 fw-bold">Phone Number</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.PhoneNumber)</dd>
+
+                <dt class="col-sm-3 fw-bold">Address</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Address)</dd>
+
+                <dt class="col-sm-3 fw-bold">Is Active</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.IsActive)</dd>
+
+                <dt class="col-sm-3 fw-bold">Is Deleted</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.IsDeleted)</dd>
+
+                <dt class="col-sm-3 fw-bold">Hiring Date</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.HiringDate)</dd>
+
+                <dt class="col-sm-3 fw-bold">Date of Creation</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.DateOfCreation)</dd>
+            </dl>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>
