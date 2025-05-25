@@ -12,10 +12,19 @@ namespace EMS.Web.Controllers
         {
             this.employeeRepository = employeeRepository;
         }
-        [HttpGet]
-        public IActionResult Index()
+        
+        public IActionResult Index(string input)
         {
-            var Employees = employeeRepository.GetAll();
+            var Employees=Enumerable.Empty<Employee>();
+            if (string.IsNullOrEmpty(input))
+            {
+                Employees = employeeRepository.GetAll();
+            }
+            else
+            {
+                Employees = employeeRepository.GetByName(input);
+
+            }
             return View(Employees);
         }
         [HttpGet]

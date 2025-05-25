@@ -11,7 +11,7 @@ namespace EMS.BLL.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
-        private readonly ProjectContext _context;
+        private protected readonly ProjectContext _context;
         public GenericRepository(ProjectContext context)
         {
             _context = context;
