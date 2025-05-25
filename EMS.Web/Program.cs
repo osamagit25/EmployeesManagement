@@ -2,6 +2,7 @@ using EMS.BLL.Interfaces;
 using EMS.BLL.Repositories;
 using EMS.DAL.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace EMS.Web
 {
@@ -18,6 +19,8 @@ namespace EMS.Web
                 options.UseSqlServer(connectionString));
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

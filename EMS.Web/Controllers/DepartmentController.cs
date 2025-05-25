@@ -1,4 +1,5 @@
-﻿using EMS.BLL.Interfaces;
+﻿using AutoMapper;
+using EMS.BLL.Interfaces;
 using EMS.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,14 +7,18 @@ namespace EMS.Web.Controllers
 {
     public class DepartmentController : Controller
     {
-        private readonly IDepartmentRepository departmentRepository;
-        public DepartmentController(IDepartmentRepository departmentRepository)
+        
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
+        public DepartmentController(IUnitOfWork _UOW,IMapper mapper)
         {
-            this.departmentRepository = departmentRepository;
+            
+            this.unitOfWork = _UOW;
+            this.mapper = mapper;
         }
         public IActionResult Index()
         {
-            var Departments = departmentRepository.GetAll();
+            var Departments = unitOfWork.DepartmentRepository.GetAll();
             return View(Departments);
         }
         [HttpGet]
@@ -26,7 +31,7 @@ namespace EMS.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var Count = departmentRepository.Add(model);
+                var Count = unitOfWork.DepartmentRepository.Add(model);
                 if (Count > 0)
                 {
                     return RedirectToAction("Index");
@@ -37,7 +42,7 @@ namespace EMS.Web.Controllers
         [HttpGet]
         public IActionResult Details (int ? id)
         {
-            var department= departmentRepository.GetById(id);
+            var department= unitOfWork.DepartmentRepository.GetById(id);
             if (department == null)
             {
                 return NotFound();
@@ -48,7 +53,7 @@ namespace EMS.Web.Controllers
         [HttpGet]
         public IActionResult Edit ([FromRoute]int id)
         {
-            var department= departmentRepository.GetById(id);
+            var department= unitOfWork.DepartmentRepository.GetById(id);
             if (department == null)
             {
                 return NotFound();
@@ -61,7 +66,7 @@ namespace EMS.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var Count = departmentRepository.Update(model);
+                var Count = unitOfWork.DepartmentRepository.Update(model);
                 if (Count >0)
                 {
                     return RedirectToAction("Index");
@@ -73,7 +78,7 @@ namespace EMS.Web.Controllers
         [HttpGet]
         public IActionResult Delete (int id)
         {
-            var department = departmentRepository.GetById(id);
+            var department = unitOfWork.DepartmentRepository.GetById(id);
             if (department == null)
             {
                 return NotFound();
@@ -84,7 +89,7 @@ namespace EMS.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(Department model)
         {
-            var Count = departmentRepository.Delete(model);
+            var Count = unitOfWork.DepartmentRepository.Delete(model);
             if (Count > 0)
             {
                 return RedirectToAction("Index");

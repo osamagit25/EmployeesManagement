@@ -1,4 +1,5 @@
-﻿using EMS.BLL.Interfaces;
+﻿using AutoMapper;
+using EMS.BLL.Interfaces;
 using EMS.BLL.Repositories;
 using EMS.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -7,10 +8,14 @@ namespace EMS.Web.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly IEmployeeRepository employeeRepository;
-        public EmployeeController(IEmployeeRepository employeeRepository)
+        private readonly IMapper mapper;
+        private readonly IUnitOfWork unitOfWork;
+
+        public EmployeeController(IUnitOfWork unitOfWork,IMapper mapper)
         {
-            this.employeeRepository = employeeRepository;
+           
+            this.unitOfWork = unitOfWork;
+            this.mapper = mapper;
         }
         
         public IActionResult Index(string input)
@@ -18,11 +23,11 @@ namespace EMS.Web.Controllers
             var Employees=Enumerable.Empty<Employee>();
             if (string.IsNullOrEmpty(input))
             {
-                Employees = employeeRepository.GetAll();
+                Employees = unitOfWork.EmployeeRepository.GetAll();
             }
             else
             {
-                Employees = employeeRepository.GetByName(input);
+                Employees = unitOfWork.EmployeeRepository.GetByName(input);
 
             }
             return View(Employees);
@@ -38,7 +43,7 @@ namespace EMS.Web.Controllers
             if (ModelState.IsValid)
             {
 
-                var Count = employeeRepository.Add(model);
+                var Count = unitOfWork.EmployeeRepository.Add(model);
                 if (Count > 0)
                 {
                     return RedirectToAction("Index");
@@ -49,7 +54,7 @@ namespace EMS.Web.Controllers
         [HttpGet]
         public IActionResult Details(int id)
         {
-            var employee= employeeRepository.GetById(id);
+            var employee= unitOfWork.EmployeeRepository.GetById(id);
             if (employee == null)
             {
                 return NotFound();
@@ -59,7 +64,7 @@ namespace EMS.Web.Controllers
         [HttpGet]
         public IActionResult Edit(int id) {
             
-            var employee= employeeRepository.GetById(id);
+            var employee= unitOfWork.EmployeeRepository.GetById(id);
             if (employee == null)
             {
                 return NotFound();
@@ -75,7 +80,7 @@ namespace EMS.Web.Controllers
             {
 
 
-                var Count = employeeRepository.Update(model);
+                var Count = unitOfWork.EmployeeRepository.Update(model);
                 if (Count > 0)
                 {
                     return RedirectToAction("Index");
@@ -85,7 +90,7 @@ namespace EMS.Web.Controllers
         }
         [HttpGet]
         public IActionResult Delete(int id) {
-            var employee = employeeRepository.GetById(id);
+            var employee = unitOfWork.EmployeeRepository.GetById(id);
             if (employee == null)
             { return NotFound(); }
             return View(employee);
@@ -94,7 +99,7 @@ namespace EMS.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(Employee model) {
            
-                var count = employeeRepository.Delete(model);
+                var count = unitOfWork.EmployeeRepository.Delete(model);
                 if (count > 0) { 
                     return RedirectToAction("Index");
                  }

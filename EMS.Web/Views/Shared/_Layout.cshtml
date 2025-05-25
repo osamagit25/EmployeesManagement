@@ -8,15 +8,89 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/EMS.Web.styles.css" asp-append-version="true" />
+    <style>
+        /* Custom Toggler Design */
+        .custom-toggler {
+            padding: 0.75rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+            .custom-toggler:hover {
+                transform: scale(1.05);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .custom-toggler:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+            }
+
+        .navbar-toggler-icon {
+            position: relative;
+            width: 1.75em;
+            height: 1.75em;
+            transition: all 0.3s ease;
+        }
+
+        .toggler-bar {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #4f46e5, #6366f1);
+            left: 0;
+            transition: all 0.3s ease;
+        }
+
+        .top-bar {
+            top: 4px;
+        }
+
+        .middle-bar {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .bottom-bar {
+            bottom: 4px;
+        }
+
+        /* Animated X when collapsed */
+        .custom-toggler[aria-expanded="true"] .top-bar {
+            transform: rotate(45deg) translate(4px, 4px);
+        }
+
+        .custom-toggler[aria-expanded="true"] .middle-bar {
+            opacity: 0;
+        }
+
+        .custom-toggler[aria-expanded="true"] .bottom-bar {
+            transform: rotate(-45deg) translate(4px, -4px);
+        }
+
+       
+
+       
+    </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EMS.Web</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Employee Management System</a>
+                <button class="navbar-toggler custom-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation menu">
+                    <span class="navbar-toggler-icon">
+                        <span class="toggler-bar top-bar"></span>
+                        <span class="toggler-bar middle-bar"></span>
+                        <span class="toggler-bar bottom-bar"></span>
+                    </span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
