@@ -11,7 +11,7 @@ namespace EMS.DAL.Models
    public class Department:BaseEntity
     {
        
-        [Required(ErrorMessage = "Code is required")]
+        
         public string Code { get; set; }
         public ICollection<Employee>? Employees { get; set; }
 

@@ -12,10 +12,9 @@ namespace EMS.DAL.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Name is required")]
+        
         public string Name { get; set; }
-        [DisplayName("Date Of Creation")]
-        [Required(ErrorMessage = "Date is required")]
+        
         public DateTime DateOfCreation { get; set; }
     }
 }

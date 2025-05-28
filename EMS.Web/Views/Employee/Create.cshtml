@@ -1,4 +1,4 @@
-﻿@model EMS.DAL.Models.Employee
+﻿@model EmployeeViewModel
 
 @{
     ViewData["Title"] = "Create Employee";
@@ -10,8 +10,8 @@
             <h4 class="mb-0">Create New Employee</h4>
         </div>
         <div class="card-body">
-            <form asp-action="Create">
-                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="alert alert-danger"></div>
 
                 <div class="mb-3">
                     <label asp-for="Name" class="form-label"></label>
@@ -48,6 +48,14 @@
                     <input asp-for="Address" class="form-control" placeholder="123 Street-City-Country" />
                     <span asp-validation-for="Address" class="text-danger"></span>
                 </div>
+                <div class="form-group">
+                    <label asp-for="DepartmentId"></label>
+                    <select asp-for="DepartmentId" class="form-control" asp-items="ViewBag.Departments">
+                        <option value="">-- Select Department --</option>
+                    </select>
+                    <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                </div>
+
 
                 <div class="form-check mb-3">
                     <input class="form-check-input" asp-for="IsActive" />
@@ -64,6 +72,11 @@
                     <label asp-for="DateOfCreation" class="form-label"></label>
                     <input asp-for="DateOfCreation" class="form-control" type="date" />
                     <span asp-validation-for="DateOfCreation" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Image" class="form-label"></label>
+                    <input  asp-for="Image"  class="form-control" type="file" />
+                   
                 </div>
 
                 <div class="d-flex justify-content-between">

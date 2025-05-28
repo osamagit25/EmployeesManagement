@@ -1,11 +1,12 @@
 ﻿using EMS.DAL.Models;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace EMS.Web.ViewModels.Employee
 {
-    public class EmployeeViewModel
+    public class CreateEmployeeVM
     {
+        public int Id { get; set; }
         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Age must be 18:60")]
@@ -28,9 +29,15 @@ namespace EMS.Web.ViewModels.Employee
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime HiringDate { get; set; }
+        [DisplayName("Date Of Creation")]
+        [Required(ErrorMessage = "Date is required")]
+        public DateTime DateOfCreation { get; set; }
+        [Required(ErrorMessage = "Department is required")]
+        [Display(Name = "Department")]
         public int? DepartmentId { get; set; }
-
-        public string DepartmentName { get; set; }
+        public Department? Department  { get; set; }
+        public string ? ImageURL { get; set; }
+        public IFormFile? Image { get; set; }
 
     }
 }

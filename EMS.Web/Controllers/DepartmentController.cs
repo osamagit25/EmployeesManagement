@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EMS.BLL.Interfaces;
 using EMS.DAL.Models;
+using EMS.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EMS.Web.Controllers
@@ -19,7 +20,8 @@ namespace EMS.Web.Controllers
         public IActionResult Index()
         {
             var Departments = unitOfWork.DepartmentRepository.GetAll();
-            return View(Departments);
+            var DepartmentVM = mapper.Map<IEnumerable<DepartmentViewmodel>>(Departments);
+            return View(DepartmentVM);
         }
         [HttpGet]
         public IActionResult Create()
@@ -27,11 +29,12 @@ namespace EMS.Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Department model)
+        public IActionResult Create(DepartmentViewmodel model)
         {
+            var Deartment = mapper.Map<Department>(model);
             if (ModelState.IsValid)
             {
-                var Count = unitOfWork.DepartmentRepository.Add(model);
+                var Count = unitOfWork.DepartmentRepository.Add(Deartment);
                 if (Count > 0)
                 {
                     return RedirectToAction("Index");
@@ -47,7 +50,8 @@ namespace EMS.Web.Controllers
             {
                 return NotFound();
             }
-            return View(department);
+            var DepartmentVM = mapper.Map<DepartmentViewmodel>(department);
+            return View(DepartmentVM);
 
         }
         [HttpGet]
@@ -58,21 +62,24 @@ namespace EMS.Web.Controllers
             {
                 return NotFound();
             }
-            return View(department);
+          var  DepartmentVM= mapper.Map<DepartmentViewmodel>(department);
+            return View(DepartmentVM);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Department model)
+        public IActionResult Edit(DepartmentViewmodel model)
         {
+            var Department= mapper.Map<Department>(model);
             if (ModelState.IsValid)
             {
-                var Count = unitOfWork.DepartmentRepository.Update(model);
+                var Count = unitOfWork.DepartmentRepository.Update(Department);
                 if (Count >0)
                 {
                     return RedirectToAction("Index");
                 }
                
             }
+
             return View(model);
         }
         [HttpGet]
@@ -83,7 +90,8 @@ namespace EMS.Web.Controllers
             {
                 return NotFound();
             }
-            return View(department);
+            var DepartmentVM= mapper.Map<DepartmentViewmodel>(department);
+            return View(DepartmentVM);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

@@ -18,5 +18,9 @@ namespace EMS.BLL.Repositories
         {
             return _context.Employees.Where(e=>e.Name.ToLower().Contains(name.ToLower())).Include(e=>e.Department).ToList();
         }
+        public override IEnumerable<Employee> GetAll()
+        {
+            return _context.Set<Employee>().Include(e=>e.Department).ToList();
+        }
     }
 }

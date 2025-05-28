@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EMS.DAL.Models;
+using EMS.Web.ViewModels;
 using EMS.Web.ViewModels.Employee;
 
 namespace EMS.Web.Mapping
@@ -10,8 +11,8 @@ namespace EMS.Web.Mapping
         {
             CreateMap<Employee,EmployeeViewModel>().ReverseMap();
             CreateMap<Employee, EmployeeViewModel>()
-    .ForMember(dest => dest.DepartmentName, opt => opt.MapFrom(src => src.Department.Name ))
-    .ReverseMap();
+    .ForMember(dest => dest.DepartmentId, opt => opt.MapFrom(src => src.DepartmentId))
+    ;
 
         }
     }

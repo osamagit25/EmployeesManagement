@@ -29,7 +29,7 @@ namespace EMS.BLL.Repositories
             return _context.SaveChanges();
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
            return _context.Set<T>().ToList();
         }
