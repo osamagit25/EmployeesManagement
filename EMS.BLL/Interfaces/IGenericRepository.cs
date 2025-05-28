@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace EMS.BLL.Interfaces
 {
-    public interface IGenericRepository<T>
+    public interface   IGenericRepository<T>
     {
-        IEnumerable<T> GetAll();
-        T GetById(int? id);
+      Task<  IEnumerable<T>> GetAllAsync();
+       Task <T> GetById(int? id);
         
-        int Add(T entity);
-        int Update(T entity);
-        int Delete(T entity);
+      Task<  int> AddAsync(T entity);
+        Task<int> Update(T entity);    
+        Task< int >Delete(T entity);
     }
 }

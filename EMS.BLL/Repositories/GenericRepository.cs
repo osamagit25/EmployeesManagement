@@ -1,6 +1,7 @@
 ﻿using EMS.BLL.Interfaces;
 using EMS.DAL.Data.Contexts;
 using EMS.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,34 +18,34 @@ namespace EMS.BLL.Repositories
             _context = context;
         }
 
-        public int Add(T entity)
+        public async Task< int> AddAsync(T entity)
         {
-          _context.Add(entity);
-            return _context.SaveChanges();
+          await _context.AddAsync(entity);
+            return await _context.SaveChangesAsync();
         }
 
-        public int Delete(T entity)
+        public async Task<int> Delete(T entity)
         {
             _context.Remove(entity);
-            return _context.SaveChanges();
+            return await _context.SaveChangesAsync();
         }
 
-        public virtual IEnumerable<T> GetAll()
+        public virtual  async Task <IEnumerable<T> > GetAllAsync()
         {
-           return _context.Set<T>().ToList();
+           return await  _context.Set<T>().ToListAsync();
         }
 
-        public T GetById(int? id)
+        public async Task< T> GetById(int? id)
         {
            
-           return _context.Set<T>().Find(id);
+           return await _context.Set<T>().FindAsync(id);
            
         }
 
-        public int Update(T entity)
+        public async Task<int> Update(T entity)
         {
             _context.Update(entity);
-            return _context.SaveChanges();
+            return await _context.SaveChangesAsync();
         }
     }
 }

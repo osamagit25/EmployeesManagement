@@ -9,10 +9,11 @@
         <div class="card-header bg-warning text-dark">
             <h4 class="mb-0">Edit Employee</h4>
         </div>
+        
         <div class="card-body">
-            <form asp-action="Edit">
+            <form asp-action="Edit" enctype="multipart/form-data">
                 <div asp-validation-summary="All" class="text-danger mb-3"></div>
-
+                <input hidden asp-for="ImageURL" />
                 <div class="mb-3">
                     <label asp-for="Name" class="form-label"></label>
                     <input asp-for="Name" class="form-control" />
@@ -76,6 +77,11 @@
                     <label asp-for="DateOfCreation" class="form-label"></label>
                     <input asp-for="DateOfCreation" class="form-control" />
                     <span asp-validation-for="DateOfCreation" class="text-danger small"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="Image" class="form-label"></label>
+                    <input asp-for="Image" class="form-control" type="file" />
+                   
                 </div>
 
                 <button type="submit" class="btn btn-success w-100">Save Changes</button>

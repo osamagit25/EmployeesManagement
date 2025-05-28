@@ -3,6 +3,7 @@ using EMS.BLL.Interfaces;
 using EMS.DAL.Models;
 using EMS.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace EMS.Web.Controllers
 {
@@ -17,9 +18,9 @@ namespace EMS.Web.Controllers
             this.unitOfWork = _UOW;
             this.mapper = mapper;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var Departments = unitOfWork.DepartmentRepository.GetAll();
+            var Departments = await unitOfWork.DepartmentRepository.GetAllAsync();
             var DepartmentVM = mapper.Map<IEnumerable<DepartmentViewmodel>>(Departments);
             return View(DepartmentVM);
         }
@@ -29,12 +30,12 @@ namespace EMS.Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(DepartmentViewmodel model)
+        public async Task<IActionResult> Create(DepartmentViewmodel model)
         {
             var Deartment = mapper.Map<Department>(model);
             if (ModelState.IsValid)
             {
-                var Count = unitOfWork.DepartmentRepository.Add(Deartment);
+                var Count =await unitOfWork.DepartmentRepository.AddAsync(Deartment);
                 if (Count > 0)
                 {
                     return RedirectToAction("Index");
@@ -43,9 +44,9 @@ namespace EMS.Web.Controllers
             return View(model);
         }
         [HttpGet]
-        public IActionResult Details (int ? id)
+        public async Task<IActionResult> Details (int ? id)
         {
-            var department= unitOfWork.DepartmentRepository.GetById(id);
+            var department= await unitOfWork.DepartmentRepository.GetById(id);
             if (department == null)
             {
                 return NotFound();
@@ -55,9 +56,9 @@ namespace EMS.Web.Controllers
 
         }
         [HttpGet]
-        public IActionResult Edit ([FromRoute]int id)
+        public async Task<IActionResult> Edit ([FromRoute]int id)
         {
-            var department= unitOfWork.DepartmentRepository.GetById(id);
+            var department= await unitOfWork.DepartmentRepository.GetById(id);
             if (department == null)
             {
                 return NotFound();
@@ -67,12 +68,12 @@ namespace EMS.Web.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(DepartmentViewmodel model)
+        public async Task<IActionResult> Edit(DepartmentViewmodel model)
         {
             var Department= mapper.Map<Department>(model);
             if (ModelState.IsValid)
             {
-                var Count = unitOfWork.DepartmentRepository.Update(Department);
+                var Count = await unitOfWork.DepartmentRepository.Update(Department);
                 if (Count >0)
                 {
                     return RedirectToAction("Index");
@@ -83,9 +84,9 @@ namespace EMS.Web.Controllers
             return View(model);
         }
         [HttpGet]
-        public IActionResult Delete (int id)
+        public async Task<IActionResult> Delete (int id)
         {
-            var department = unitOfWork.DepartmentRepository.GetById(id);
+            var department = await unitOfWork.DepartmentRepository.GetById(id);
             if (department == null)
             {
                 return NotFound();
@@ -95,9 +96,9 @@ namespace EMS.Web.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Department model)
+        public async Task<IActionResult> Delete(Department model)
         {
-            var Count = unitOfWork.DepartmentRepository.Delete(model);
+            var Count = await unitOfWork.DepartmentRepository.Delete(model);
             if (Count > 0)
             {
                 return RedirectToAction("Index");

@@ -8,7 +8,8 @@ namespace EMS.BLL.Interfaces
 {
    public interface IUnitOfWork
     {
-        public IDepartmentRepository DepartmentRepository { get;  }
-        public IEmployeeRepository EmployeeRepository { get; }
+        public IDepartmentRepository  DepartmentRepository { get;  }
+        public  IEmployeeRepository EmployeeRepository { get; }
+      Task <  int> Complete();
     }
 }

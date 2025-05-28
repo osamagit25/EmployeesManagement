@@ -25,13 +25,14 @@ namespace EMS.Web.Helpers
 
         }
 
-        public static void DeleteFile(string FileName, string FolderName)
+        public static void DeleteFile(string fileName, string folderName)
         {
-            string FilePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwroot", FolderName,FileName);
-            
-            if (File.Exists(FilePath))
+            var wwwRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            var fullPath = Path.Combine(wwwRootPath, folderName, fileName);
+
+            if (File.Exists(fullPath))
             {
-                File.Delete(FilePath);
+                File.Delete(fullPath);
             }
         }
     }

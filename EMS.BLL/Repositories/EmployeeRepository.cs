@@ -14,13 +14,13 @@ namespace EMS.BLL.Repositories
     {
         public EmployeeRepository(ProjectContext context): base(context) { }
 
-        public IEnumerable<Employee> GetByName(string name)
+        public async Task< IEnumerable<Employee>> GetByNameAsync(string name)
         {
-            return _context.Employees.Where(e=>e.Name.ToLower().Contains(name.ToLower())).Include(e=>e.Department).ToList();
+            return await _context.Employees.Where(e=>e.Name.ToLower().Contains(name.ToLower())).Include(e=>e.Department).ToListAsync();
         }
-        public override IEnumerable<Employee> GetAll()
+        public override async Task< IEnumerable<Employee>> GetAllAsync()
         {
-            return _context.Set<Employee>().Include(e=>e.Department).ToList();
+            return await _context.Set<Employee>().Include(e=>e.Department).ToListAsync();
         }
     }
 }

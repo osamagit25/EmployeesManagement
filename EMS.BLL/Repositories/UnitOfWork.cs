@@ -1,5 +1,6 @@
 ﻿using EMS.BLL.Interfaces;
 using EMS.DAL.Data.Contexts;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,5 +24,14 @@ namespace EMS.BLL.Repositories
         public IDepartmentRepository DepartmentRepository => _DepartmentRepository;
 
         public IEmployeeRepository EmployeeRepository => _EmployeeRepository;
+        public async Task< int> Complete()
+        {
+            return await _Context.SaveChangesAsync(); 
+        }
+
+        public void Dispose()
+        {
+            _Context.Dispose();
+        }
     }
 }
