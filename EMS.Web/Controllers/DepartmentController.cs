@@ -2,11 +2,13 @@
 using EMS.BLL.Interfaces;
 using EMS.DAL.Models;
 using EMS.Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace EMS.Web.Controllers
 {
+    
     public class DepartmentController : Controller
     {
         
@@ -24,6 +26,7 @@ namespace EMS.Web.Controllers
             var DepartmentVM = mapper.Map<IEnumerable<DepartmentViewmodel>>(Departments);
             return View(DepartmentVM);
         }
+        [Authorize]
         [HttpGet]
         public IActionResult Create()
         {

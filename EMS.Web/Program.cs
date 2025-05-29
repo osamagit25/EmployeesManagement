@@ -1,6 +1,8 @@
 using EMS.BLL.Interfaces;
 using EMS.BLL.Repositories;
 using EMS.DAL.Data.Contexts;
+using EMS.DAL.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -21,6 +23,10 @@ namespace EMS.Web
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ProjectContext>();
+            builder.Services.ConfigureApplicationCookie(confg =>
+             confg.LoginPath="/Account/SignIn");
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -35,6 +41,7 @@ namespace EMS.Web
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.MapStaticAssets();
             app.MapControllerRoute(

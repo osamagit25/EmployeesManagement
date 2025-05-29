@@ -4,13 +4,14 @@ using EMS.BLL.Repositories;
 using EMS.DAL.Models;
 using EMS.Web.Helpers;
 using EMS.Web.ViewModels.Employee;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
 
 namespace EMS.Web.Controllers
 {
-
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly IMapper mapper;
